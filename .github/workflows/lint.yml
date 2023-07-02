@@ -1,0 +1,25 @@
+name: golangci-lint
+on:
+  pull_request:
+    branches: [ main, feature*, prerelease* ]
+  push:
+    branches:
+      - main
+jobs:
+  golangci:
+    name: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+      - uses: actions/checkout@v3
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: v1.45
+          working-directory: .
+          args: --timeout 15m0s
